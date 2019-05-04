@@ -1,5 +1,6 @@
 <template>
   <v-layout>
+
     <v-flex xs1 sm2 md2>
       <left-page></left-page>
     </v-flex>
@@ -11,6 +12,8 @@
     <v-flex xs1 sm2 md2>
       <right-page></right-page>
     </v-flex>
+    <challenge-dialog></challenge-dialog>
+
   </v-layout>
 </template>
 
@@ -23,6 +26,7 @@
   import RightPage from './right-page.vue';
   import Lessons from '~/components/Lessons.vue' //list all lessons
   import VocabulariesInLesson from '~/components/VocabulariesInLesson.vue'
+  import ChallengeDialog from '~/components/Challenge.vue'
   import {
     mapMutations
   } from 'vuex'
@@ -30,14 +34,15 @@
 
 
   export default {
-    
+
     components: {
       Logo,
       VuetifyLogo,
       Lessons,
       LeftPage,
       RightPage,
-      VocabulariesInLesson
+      VocabulariesInLesson,
+      ChallengeDialog
     },
     data: function () {
       return {
@@ -46,7 +51,7 @@
     },
 
     methods: {
-     
+
     },
     computed: {
       Lessons: {
@@ -55,6 +60,14 @@
         },
         set(value) {
           this.$store.commit('englishpage/setLessons', value);
+        }
+      },
+      challengeDialog: {
+        get() {
+          return this.$store.state.englishpage.openChallengeDialog;
+        },
+        set(value) {
+          this.$store.commit('englishpage/setChallengeDialog', value);
         }
       }
     },
@@ -65,7 +78,7 @@
         // console.log(this.Lessons);
       })
     }
-  
+
   }
 
 </script>

@@ -27,17 +27,47 @@
           </v-avatar>
         </div>
         <v-card-actions class="justify-center">
-          <v-btn round  color="secondary">THÁCH ĐẤU</v-btn>
+          <v-btn @click="openChallengeDialog" round color="secondary">THÁCH ĐẤU</v-btn>
         </v-card-actions>
       </v-card>
       <v-card>
 
       </v-card>
     </v-flex>
+    <challenge-dialog></challenge-dialog>
   </v-layout>
 </template>
 
 <script>
+   import ChallengeDialog from '~/components/Challenge.vue'
+  export default {
+
+    components: {
+      ChallengeDialog
+    },
+    
+    data: function () {
+      return {
+
+      }
+    },
+
+    computed: {
+      challengeDialog: {
+        get() {
+          return this.$store.state.englishpage.openChallengeDialog;
+        },
+        set(value) {
+          this.$store.commit('englishpage/setChallengeDialog', value);
+        }
+      }
+    },
+    methods: {
+      openChallengeDialog() {
+        this.challengeDialog = true;
+      }
+    }
+  }
 
 </script>
 
