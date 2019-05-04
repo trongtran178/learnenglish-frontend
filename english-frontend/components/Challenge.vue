@@ -11,7 +11,7 @@
       </v-card-title>
       <v-card-actions class="justify-center">
         <v-btn color="primary" @click="openChallengeWithComputerRoom">THÁCH ĐẤU VỚI MÁY</v-btn>
-        <v-btn color="secondary" disabled>CHƠI NGẪU NHIÊN</v-btn>
+        <v-btn color="secondary" disabled>THÁCH ĐẤU VỚI NGƯỜI CHƠI KHÁC</v-btn>
       </v-card-actions>
     </v-card>
     <challenge-room></challenge-room>
