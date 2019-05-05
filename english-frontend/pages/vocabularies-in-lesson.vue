@@ -13,41 +13,51 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  import Vuex from 'vuex'
-  import LeftPage from './left-page.vue';
-  import RightPage from './right-page.vue';
-  import Lessons from '~/components/Lessons.vue' //list all lessons
-  import VocabulariesInLesson from '~/components/VocabulariesInLesson.vue'
-  import {
-    mapMutations
-  } from 'vuex'
+import axios from "axios";
+import Vuex from "vuex";
+import LeftPage from "./left-page.vue";
+import RightPage from "./right-page.vue";
+import Lessons from "~/components/Lessons.vue"; //list all lessons
+import VocabulariesInLesson from "~/components/VocabulariesInLesson.vue";
+import { mapMutations } from "vuex";
 
-  export default {
+export default {
+  data: function() {
+    return {};
+  },
 
-    data: function () {
-      return {
-
+  components: {
+    LeftPage,
+    VocabulariesInLesson,
+    RightPage,
+    isLoginSuccess: {
+      get() {
+        return this.$store.state.englishpage.isLoginSuccess;
+      },
+      set(value) {
+        this.$store.commit("englishpage/setLoginSuccess", value);
       }
     },
+    userLogin: {
+      get() {
+        return this.$store.state.englishpage.userLogin;
+      },
 
-    components: {
-      LeftPage,
-      VocabulariesInLesson,
-      RightPage
-    },
-    // mounted() {
-    //   this.lessonID = this.$route.query.id;
-    //   console.log(this.lessonID)
-    //   axios.get(`http://localhost:8080/vocabularies/` + this.lessonID)
-    //     .then(response => {
-    //       console.log(response.data);
-    //     })
-    // }
+      set(value) {
+        this.$store.commit("englishpage/setUserLogin", value);
+      }
+    }
   }
-
+  // mounted() {
+  //   this.lessonID = this.$route.query.id;
+  //   console.log(this.lessonID)
+  //   axios.get(`http://localhost:8080/vocabularies/` + this.lessonID)
+  //     .then(response => {
+  //       console.log(response.data);
+  //     })
+  // }
+};
 </script>
 
 <style scoped>
-
 </style>

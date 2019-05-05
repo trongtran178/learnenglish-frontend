@@ -23,6 +23,7 @@
   import RightPage from './right-page.vue';
   import Lessons from '~/components/Lessons.vue' //list all lessons
   import VocabulariesInLesson from '~/components/VocabulariesInLesson.vue'
+
   import {
     mapMutations
   } from 'vuex'
@@ -56,9 +57,21 @@
         set(value) {
           this.$store.commit('englishpage/setLessons', value);
         }
+      },
+          isLoginSuccess: {
+      get() {
+        return this.$store.state.englishpage.isLoginSuccess;
+      },
+      set(value) {
+        this.$store.commit("englishpage/setLoginSuccess", value);
       }
     },
+    },
     mounted() {
+      this.isLoginSuccess = localStorage.getItem("isLogin");
+      if(this.isLoginSuccess === false) {
+        this.$router.push("/")
+      }
       axios.get(`http://localhost:8080/lessons`).then(response => {
         this.Lessons = response.data;
 
