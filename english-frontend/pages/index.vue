@@ -12,7 +12,7 @@
     <v-flex xs1 sm2 md2>
       <right-page></right-page>
     </v-flex>
-    <challenge-dialog></challenge-dialog>
+    
 
   </v-layout>
 </template>
@@ -26,7 +26,7 @@
   import RightPage from './right-page.vue';
   import Lessons from '~/components/Lessons.vue' //list all lessons
   import VocabulariesInLesson from '~/components/VocabulariesInLesson.vue'
-  import ChallengeDialog from '~/components/Challenge.vue'
+ 
   import {
     mapMutations
   } from 'vuex'
@@ -41,8 +41,7 @@
       Lessons,
       LeftPage,
       RightPage,
-      VocabulariesInLesson,
-      ChallengeDialog
+      VocabulariesInLesson
     },
     data: function () {
       return {

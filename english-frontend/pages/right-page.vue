@@ -39,7 +39,7 @@
 </template>
 
 <script>
-   import ChallengeDialog from '~/components/Challenge.vue'
+   const ChallengeDialog = () => import('~/components/Challenge.vue');
   export default {
 
     components: {

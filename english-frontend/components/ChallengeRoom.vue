@@ -1,9 +1,5 @@
 <template>
-  <v-dialog persistent v-model="challengeWithComputer" height="90%" width="900">
-
-    <!-- <v-snackbar v-model="isWrongSelect" timeout="4000" top>
-      Bạn đã chọn sai rồi
-    </v-snackbar> -->
+  <v-dialog persistent v-model="challengeWithComputer" height="90%" width="1000">
     <template v-if="showLoading">
       <v-progress-linear v-model="valueLoading" :active="showLoading">
 
@@ -13,17 +9,17 @@
     <template v-else>
 
       <v-card>
-        <!-- <v-btn @click="computerSelect()">adasdas</v-btn> -->
         <v-card-title class="justify-center">
           <v-chip color="primary" text-color="white">
             <v-icon left>start</v-icon>
             <div class="display-1">KING OF WORDS</div>
             <v-icon right>start</v-icon>
           </v-chip>
-          <!-- <v-btn @click="nextChallenge">Next challenge</v-btn> -->
         </v-card-title>
         <v-card-title>
-
+          <v-btn small round color="red" class="white--text">Correct: <div class="headline">{{countUserCollectSelect}}
+            </div>
+          </v-btn>
           <v-avatar>
             <v-img src="/v.png"></v-img>
           </v-avatar>
@@ -50,12 +46,12 @@
           <v-spacer></v-spacer>
 
           <div v-if="isComputerTrueSelect">
-              <v-fab-transition>
-                <v-icon large color="primary" dark absolute bottom left>
-                  check_circle
-                </v-icon>
-              </v-fab-transition>
-            </div>
+            <v-fab-transition>
+              <v-icon large color="primary" dark absolute bottom left>
+                check_circle
+              </v-icon>
+            </v-fab-transition>
+          </div>
           <v-rating readonly color="red" v-model="computerHealth" length="3" empty-icon="favorite_border"
             full-icon="favorite">
 
@@ -66,9 +62,9 @@
           <v-avatar>
             <v-img src="/v.png"></v-img>
           </v-avatar>
-
-
-
+          <v-btn small round color="red" class="white--text">Correct: <div class="headline">
+              {{countComputerCollectSelect}}</div>
+          </v-btn>
         </v-card-title>
         <v-card-text>
 
@@ -93,12 +89,12 @@
               <template v-for="word in wordsChallengeFormat[currentQuestion]">
                 <v-flex xs6>
                   <v-card class="ma-4" @click="checkAnswer(word)">
-                    <v-card-title class="justify-center">
-                      <!-- {{word.word}} -->
-                      <v-img height="150" aspect-ratio src="https://picsum.photos/510/300">
 
-                      </v-img>
-                    </v-card-title>
+                    <!-- {{word.word}} -->
+                    <v-img height="150" contain aspect-ratio="1" :src="word.image">
+
+                    </v-img>
+
 
                   </v-card>
 
@@ -115,7 +111,7 @@
               <template v-for="word in wordsChallengeFormat[currentQuestion]">
                 <v-flex xs6>
                   <v-card class="ma-1" @click="checkAnswer(word)">
-                    <v-img height="150" aspect-ratio src="https://picsum.photos/510/300">
+                    <v-img height="150" contain :src="word.image">
 
                     </v-img>
                   </v-card>
@@ -130,7 +126,7 @@
                 <v-flex xs4>
                   <v-card class="ma-1" @click="checkAnswer(word)">
                     <v-card-title class="justify-center">
-                      <v-img height="120" aspect-ratio src="https://picsum.photos/510/300">
+                      <v-img height="120" contain :src="word.image">
 
                       </v-img>
                     </v-card-title>
@@ -146,7 +142,7 @@
                 <v-flex xs3>
                   <v-card class="ma-2" @click="checkAnswer(word)">
                     <v-card-title class="justify-center">
-                      <v-img height="120" aspect-ratio src="https://picsum.photos/510/300">
+                      <v-img height="120" contain aspect-ratio="1" :src="word.image">
 
                       </v-img>
                     </v-card-title>
@@ -162,7 +158,7 @@
                 <v-flex xs3>
                   <v-card class="ma-1" @click="checkAnswer(word)">
                     <v-card-title class="justify-center">
-                      <v-img height="70" aspect-ratio src="https://picsum.photos/510/300">
+                      <v-img height="70" contain aspect-ratio="1" :src="word.image">
 
                       </v-img>
                     </v-card-title>
@@ -172,10 +168,6 @@
             </v-layout>
           </template>
         </v-card-text>
-        <!-- <v-card-actions class="justify-center">
-                    <v-btn color="primary" @click="openChallengeWithComputerRoom">THÁCH ĐẤU VỚI MÁY</v-btn>
-                    <v-btn color="secondary" disabled>CHƠI NGẪU NHIÊN</v-btn>
-                  </v-card-actions> -->
       </v-card>
     </template>
   </v-dialog>
@@ -198,7 +190,16 @@
         wordsChallengeFormat: null,
         isWrongSelect: false,
         isUserTrueSelect: false,
-        isComputerTrueSelect: false
+        isComputerTrueSelect: false,
+        countUserCollectSelect: 0,
+        countComputerCollectSelect: 0,
+
+        arrayWordsHasUsed: [],
+
+        computerSelectTracking: null
+
+
+
       }
     },
 
@@ -209,14 +210,20 @@
             this.vocabulariesChallenge = response.data;
           }).then(() => {
             this.formatVocabulariesChallenge();
+          }).then(() => {
+            this.computerSelectTracking = setTimeout(() => {
+              this.computerSelect();
+            }, 4000);
           });
       },
+
       nextChallenge() {
         this.currentQuestion++;
       },
       loading() {
         this.showLoading = true;
         this.valueLoading = 0;
+
         this.interval = setInterval(() => {
           if (this.valueLoading === 100) {
             clearInterval(this.interval);
@@ -320,10 +327,17 @@
         //return arrayResult;
 
       },
+
       checkAnswer(word) {
+        if (this.isComputerTrueSelect || this.isUserTrueSelect) {
+          return;
+        }
         if (word.word == this.correctWord.word) {
           this.isUserTrueSelect = true;
-          this.currentQuestion++;
+          setTimeout(() => {
+            this.currentQuestion++;
+          }, 3000)
+
         } else {
           // alert("false");
           this.isWrongSelect = true;
@@ -334,42 +348,82 @@
       },
 
       randomWordInChallengeWord() {
-        var word;
 
         var indexRandom = Math.floor(Math.random() * this.wordsChallengeFormat[this.currentQuestion].length);
+        if (this.arrayWordsHasUsed.includes(this.wordsChallengeFormat[this.currentQuestion][indexRandom])) {
+          while (true) {
+            indexRandom = Math.floor(Math.random() * this.wordsChallengeFormat[this.currentQuestion].length);
+            if (!this.arrayWordsHasUsed.includes(this.wordsChallengeFormat[this.currentQuestion][indexRandom])) {
+              this.arrayWordsHasUsed.push(this.wordsChallengeFormat[this.currentQuestion][indexRandom]);
 
-        return this.wordsChallengeFormat[this.currentQuestion][indexRandom];
+              break;
+            }
+          }
+          return this.wordsChallengeFormat[this.currentQuestion][indexRandom];
+        } else {
+          this.arrayWordsHasUsed.push(this.wordsChallengeFormat[this.currentQuestion][indexRandom]);
+          return this.wordsChallengeFormat[this.currentQuestion][indexRandom];
+        }
       },
 
       computerSelect() {
+
         //random tu  0 - 9
-        var randomValue = Math.floor(Math.random() * 10);
-        if(randomValue > 0) {
-          this.isComputerTrueSelect = true;
-          this.currentQuestion++;
-        } else  {
-          
-        }
+        var randomSecond = Math.floor(Math.random() * 2000) + 3000;
+        this.computerSelectTracking = setTimeout(() => {
+
+          var randomValue = Math.floor(Math.random() * 10);
+          if (randomValue > 0) {
+            this.isComputerTrueSelect = true;
+            this.countComputerCollectSelect++;
+            setTimeout(() => {
+              this.currentQuestion++;
+            }, 3000)
+
+          } else {
+            this.isComputerTrueSelect = false;
+            this.computerHealth -= 1;
+            this.computerSelect();
+
+          }
+        }, randomSecond);
+
       },
 
 
 
     },
     mounted() {
+      this.currentQuestion = 0;
       this.showLoading = true;
       this.valueLoading = 0;
+
       this.loading();
       this.getWordsChallenge();
-
     },
     watch: {
       currentQuestion: function () {
+        if (this.currentQuestion >= 10) {
+          if (this.countComputerCollectSelect > this.countUserCollectSelect) {
+            setTimeout(() => {
+              this.challengeWithComputer = false;
+              this.$router.push('/loser?player=user');
+            }, 2000);
+          } else if (this.countComputerCollectSelect < this.countUserCollectSelect) {
+            setTimeout(() => {
+              this.challengeWithComputer = false;
+              this.$router.push('/loser?player=computer');
+            }, 2000);
+          } else {
+            setTimeout(() => {
+              this.challengeWithComputer = false;
+              this.$router.push('/loser?player=hoanhau');
+            }, 2000);
+          }
+          return;
+        }
         this.correctWord = this.randomWordInChallengeWord();
-        var randomSecond = Math.floor(Math.random() * 10) + 2000;
-        console.log(randomSecond)
-        setTimeout(() => {
-          this.computerSelect();
-        }, randomSecond);
+        this.computerSelect();
       },
 
       wrongAnswer: function () {
@@ -379,24 +433,49 @@
       },
       isUserTrueSelect: function () {
         if (this.isUserTrueSelect === true) {
+          // t//his.computerSelect();
+
+          clearInterval(this.computerSelectTracking);
+          this.countUserCollectSelect++;
           setTimeout(() => {
+
             this.isUserTrueSelect = false;
-          }, 1000);
+          }, 3000);
+          // this.computerSelect();
         }
       },
 
-      isComputerTrueSelect: function() {
+      isComputerTrueSelect: function () {
         if (this.isComputerTrueSelect === true) {
           setTimeout(() => {
             this.isComputerTrueSelect = false;
-          }, 1000);
+          }, 3000);
         }
       },
 
       userHealth: function () {
         if (this.userHealth === 0) {
           this.challengeWithComputer = false;
-          this.$router.push('/loser');
+          this.$router.push('/loser?player=user');
+        }
+      },
+
+      computerHealth: function () {
+        if (this.computerHealth === 0) {
+          this.challengeWithComputer = false;
+          this.$router.push('/loser?player=computer');
+        }
+      },
+      countComputerCollectSelect: function () {
+        if (this.countComputerCollectSelect >= 10) {
+          this.challengeWithComputer = false;
+          this.$router.push('/loser?player=user');
+        }
+      },
+      countUserCollectSelect: function () {
+        if (this.countUserCollectSelect >= 10) {
+          this.challengeWithComputer = false;
+          this.$router.push('/loser?player=computer');
         }
       }
     },

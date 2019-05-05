@@ -14,12 +14,14 @@
         <v-btn color="secondary" disabled>THÁCH ĐẤU VỚI NGƯỜI CHƠI KHÁC</v-btn>
       </v-card-actions>
     </v-card>
-    <challenge-room></challenge-room>
+    <template v-if="challengeWithComputer">
+      <challenge-room></challenge-room>
+    </template>
   </v-dialog>
 </template>
 
 <script>
-  import ChallengeRoom from './ChallengeRoom.vue';
+  const ChallengeRoom = () => import('./ChallengeRoom.vue');
   export default {
 
     components: {

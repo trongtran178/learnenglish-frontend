@@ -9,13 +9,25 @@
 
       </div>
       <v-spacer></v-spacer>
+      <template v-if="player==='user'">
       <div>
        BẠN ĐÃ THUA MẤT RỒI
       </div>
+    </template>
+    <template v-else-if="player==='computer'">
+      <div>
+       CHÚC MỪNG BẠN ĐÃ CHIẾN THẮNG
+       </div>
+    </template>
+    <template v-else>
+      <div>Bạn và máy đã hòa nhau rồi, thật là ngang tài ngang sức mà, hihi</div>
+    </template>
       <v-spacer></v-spacer>
     </v-card-title>
     <v-card-text>
+      <template v-if="player==='user'">
       Xin chia buồn cùng bạn, hãy cố gắng lần sau nhé !
+    </template>
     </v-card-text>
     <!-- </v-layout> -->
   </v-card>
@@ -25,14 +37,24 @@
 <script>
   import axios from 'axios'
   export default {
+    
+    data: function() {
+       return {
+        player: null,
+       }
+    },
+    
     computed: {
      
     },
     methods: {
-     
+      
     },
 
     mounted() {
+
+      this.player = this.$route.query.player;
+      console.log(this.player);
       setTimeout(() => {
         this.$router.push('/');
       }, 5000)
