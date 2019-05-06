@@ -75,7 +75,6 @@
       axios.get(`http://localhost:8080/lessons`).then(response => {
         this.Lessons = response.data;
 
-        // console.log(this.Lessons);
       })
     }
   

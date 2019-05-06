@@ -3,7 +3,7 @@
     <!-- <v-layout row wrap> -->
     <div>
       <div v-if="this.isLoginSuccess==true">
-        <v-btn color="danger">Logout</v-btn>
+        <v-btn color="danger" @canplay="logOut">Logout</v-btn>
       </div>
       <div v-else>
         <v-btn color="info" @click="showLoginForm">Login</v-btn>
@@ -114,6 +114,11 @@ export default {
         path: "login-form"
       });
     },
+    logOut(){
+      localStorage.removeItem("isLogin");
+      localStorage.removeItem("userLogin");
+      this.$router.push("index");
+    },
     checkinfologin(){
       console.log(localStorage.getItem("isLogin"));
       console.log(localStorage.getItem("userLogin"));
@@ -122,6 +127,9 @@ export default {
 
   mounted() {
     this.isLoginSuccess = localStorage.getItem("isLogin");
+    if(this.isLoginSuccess === false) {
+        this.$router.push("/")
+      }
     axios.get(`http://localhost:8080/lessons`).then(response => {
       this.Lessons = response.data;
     });
