@@ -20,7 +20,7 @@
         <template v-for="lesson in Lessons">
           <v-flex xs6 sm4 md4>
             <v-hover>
-              <v-card slot-scope="{ hover }" @click="showVocabularyInLesson(lesson.id)" max-height="250px"
+              <v-card slot-scope="{ hover }" @click="showVocabularyInLesson(lesson.id,lesson.lessonName)" max-height="250px"
                 :class="`elevation-${hover ? 12 : 2} ma-2`">
                 <div class="text-xs-center">
                   <v-progress-circular class="mt-2" :width="5" :rotate="-90" color="deep-orange lighten-2" :size="145"
@@ -62,12 +62,15 @@
       getValueHasLearnedInLesson() {
         return 80;
       },
-      showVocabularyInLesson(lessonID) {
+      showVocabularyInLesson(lessonID, lessonName) {
         console.log(lessonID);
+        console.log(lessonName);
+        
         this.$router.push({
           path: 'vocabularies-in-lesson',
           query: {
-            id: lessonID
+            id: lessonID,
+            name: lessonName
           }
         })
       }

@@ -36,6 +36,10 @@
       VocabulariesInLesson,
       RightPage
     },
+    mounted() {
+      
+      console.log(this.$route.query.id);
+    }
     // mounted() {
     //   this.lessonID = this.$route.query.id;
     //   console.log(this.lessonID)

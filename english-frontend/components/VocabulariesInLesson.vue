@@ -10,7 +10,7 @@
         </v-btn>
       </v-flex>
       
-      <v-flex xs6 >
+      <v-flex xs6>
           <div class="text-xs-center">
             <v-card class="ma-5">
               <div class="flip-card">
@@ -18,8 +18,19 @@
                   <!-- Thẻ trước -->
                   <div class="flip-card-front">
                     <div class="text-xs-center pa-4">
-                      <v-img src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"></v-img>
+                      
+                      <v-img class="img" v-bind:src="vocabulariesInLesson[currentIndex].image">
+                        <v-container fill-height fluid>
+                          <v-layout fill-height>
+                            <v-flex xs12 align-end flexbox style="margin-top: 212px;">
+                              <span class="headline grey lighten-5">/{{vocabulariesInLesson[currentIndex].pronunciation}}/</span>
+                            </v-flex>
+                          </v-layout>
+                        </v-container>
+                        
+                      </v-img>
                     </div>
+                    
                     <v-card-text> 
                       {{vocabulariesInLesson[currentIndex].word}}
                     </v-card-text>
@@ -27,11 +38,12 @@
                   <!--Thẻ sau-->
                   <div class="flip-card-back">
                     <div class="text-xs-center pa-4">
-                      <v-img src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"></v-img>
+                      <v-img class="img" v-bind:src="vocabulariesInLesson[currentIndex].image"></v-img>
                     </div>
                     <v-card-text> 
                       {{vocabulariesInLesson[currentIndex].translate}}
                     </v-card-text>
+                    
                   </div>
                 </div>
               </div>
@@ -42,13 +54,20 @@
                 Ấn [dấu cách] để lật card
               </div>
               <div>
-                <v-btn round @click="showNextVocabulary(currentIndex)">
+                <v-btn class="btn-continue" round color="yellow" @click="showNextVocabulary(currentIndex)">
                   TIẾP TỤC
+                  <v-icon class="ml-1" light>
+                    volume_up
+                  </v-icon>
                 </v-btn>
               </div>
           </div>
+          <audio hidden autoplay="autoplay" v-bind:src="vocabulariesInLesson[currentIndex].sound"
+          controls="controls">Dòng thông báo</audio>
       </v-flex>
        
+      
+
       <v-flex xs3>
         <div class="text-xs-right">
           <!--<v-btn icon large>
@@ -57,7 +76,10 @@
             </v-icon>
           </v-btn>-->
           <!--Test-->
-          <v-progress-circular class="mt-2 mr-2" :width="10" :rotate="-90" color="green lighten-2" :size="80"
+          <v-card-text class="title red--text">
+            Lesson finished
+          </v-card-text>
+          <v-progress-circular class="mr-5" :width="10" :rotate="-90" color="green lighten-2" :size="80"
                     :value="academicProgress(countVocabulary)">
                     <v-avatar size="130px">
                       <v-card-text>
@@ -80,10 +102,11 @@
     data: function () {
       return {
         lessonID: null,
+        lessonName: null,
         isSuccessLoading: false,
         currentIndex: 0,
         progess: 0,
-        countVocabulary: 0
+        countVocabulary: 0,
       }
     },
 
@@ -96,53 +119,64 @@
           this.$store.commit('englishpage/setListVocabularyInLesson', value);
         }
       }
+      
     },
     methods:{
+      
       displayTranslateWhenClick(currentIndex){
         
         console.log(this.isClickTranslate);
       },
       showNextVocabulary(currentIndex){
-        console.log(this.vocabulariesInLesson.length);
         
-        console.log(currentIndex);
-        if(currentIndex < this.vocabulariesInLesson.length -1)
+        if(currentIndex < this.vocabulariesInLesson.length - 1)
         {
           this.currentIndex ++;
           this.countVocabulary ++;
         }
         else{
           this.currentIndex = 0;
-          this.countVocabulary ++;
+          
+          this.redirectResult(this.lessonID, this.lessonName);
         }
       },
       academicProgress(countVocabulary){
-        if(countVocabulary > this.vocabulariesInLesson.length)
-        {
-          this.progess = 100;
+        
+          this.progess = (countVocabulary+1) / this.vocabulariesInLesson.length * 100;
           return this.progess;
-        }
-        else{
-          this.progess = countVocabulary / this.vocabulariesInLesson.length * 100;
-          return this.progess;
-        }
+        
+      },
+      redirectResult(lessonID, lessonName){
+        this.$router.push({
+          path: 'resultlearning',
+          query: {
+            id: lessonID,
+            name: lessonName
+          }
+        })
+        
       }
     },
     mounted() {
       this.lessonID = this.$route.query.id;
-      console.log(this.lessonID)
+      this.lessonName = this.$route.query.name;
+      
+      
+
       axios.get(`http://localhost:8080/vocabularies/` + this.lessonID)
         .then(response => {
           this.isSuccessLoading = true;
           this.vocabulariesInLesson = response.data;
           console.log(this.vocabulariesInLesson);
         })
-    }
+        
+    },
   }
 
 </script>
 
 <style scoped>
+  
   .flip-card{
     position: relative;
     background-color: transparent;
@@ -181,5 +215,9 @@
   }
   .wrap-btn{
     text-align: center;
+  }
+  .img{
+    width: 340px;
+    height: 280px;
   }
 </style>
