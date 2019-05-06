@@ -2,10 +2,10 @@
   <v-card class="scroll" height="700">
     <!-- <v-layout row wrap> -->
     <div>
-      <div v-if="this.isLoginSuccess==true">
-        <v-btn color="danger" @canplay="logOut">Logout</v-btn>
+      <div>
+        <v-btn color="danger" @click="logOut">Logout</v-btn>
       </div>
-      <div v-else>
+      <div>
         <v-btn color="info" @click="showLoginForm">Login</v-btn>
       </div>
     </div>
@@ -117,7 +117,7 @@ export default {
     logOut(){
       localStorage.removeItem("isLogin");
       localStorage.removeItem("userLogin");
-      this.$router.push("index");
+      this.$router.push({path: "login-form"});
     },
     checkinfologin(){
       console.log(localStorage.getItem("isLogin"));

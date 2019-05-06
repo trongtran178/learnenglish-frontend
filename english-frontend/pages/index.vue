@@ -28,8 +28,6 @@
     mapMutations
   } from 'vuex'
 
-
-
   export default {
     
     components: {
@@ -69,13 +67,16 @@
     },
     mounted() {
       this.isLoginSuccess = localStorage.getItem("isLogin");
-      if(this.isLoginSuccess === false) {
-        this.$router.push("/")
+      console.log(this.isLoginSuccess);
+      if(this.isLoginSuccess == null) {
+        this.$router.push({path: "login-form"});
       }
-      axios.get(`http://localhost:8080/lessons`).then(response => {
+      if(this.isLoginSuccess == "true") {
+        this.$router.push("/");
+        axios.get(`http://localhost:8080/lessons`).then(response => {
         this.Lessons = response.data;
-
       })
+      }
     }
   
   }
