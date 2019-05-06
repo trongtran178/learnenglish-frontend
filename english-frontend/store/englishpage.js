@@ -2,7 +2,10 @@ export const state = () => ({
     Lessons: null,
     ListVocabularyInLesson: null,
     isLoginSuccess: false,
-    userLogin: null
+    userLogin: null,
+    openChallengeDialog: false,
+    openChallengeWithComputerRoomDialog: false,
+    vocabulariesChallenge: null
 });
 
 export const getters = {
@@ -20,6 +23,15 @@ export const mutations =  {
     },
     setUserLogin(state, value) {
         state.userLogin = value;
+    },
+    setChallengeDialog(state, value) {
+        state.openChallengeDialog = value;
+    },
+    setChallengeWithComputerRoomDialog(state, value) {
+        state.openChallengeWithComputerRoomDialog = value;
+    },
+    setVocabulariesChallenge(state, value) {
+        state.vocabulariesChallenge = value;
     }
 }
 

@@ -43,9 +43,22 @@ export default {
         return this.$store.state.englishpage.userLogin;
       },
 
-      set(value) {
-        this.$store.commit("englishpage/setUserLogin", value);
+      components: {
+        LeftPage,
+        VocabulariesInLesson,
+        RightPage
+      },
+      mounted() {
+        console.log(this.$route.query.id);
       }
+      // mounted() {
+      //   this.lessonID = this.$route.query.id;
+      //   console.log(this.lessonID)
+      //   axios.get(`http://localhost:8080/vocabularies/` + this.lessonID)
+      //     .then(response => {
+      //       console.log(response.data);
+      //     })
+      // }
     }
   }
   // mounted() {

@@ -28,7 +28,7 @@
             <v-hover>
               <v-card
                 slot-scope="{ hover }"
-                @click="showVocabularyInLesson(lesson.id)"
+                @click="showVocabularyInLesson(lesson.id,lesson.lessonName)"
                 max-height="250px"
                 :class="`elevation-${hover ? 12 : 2} ma-2`"
               >
@@ -86,6 +86,7 @@ export default {
         this.$store.commit("englishpage/setLoginSuccess", value);
       }
     },
+
     userLogin: {
       get() {
         return this.$store.state.englishpage.userLogin;
@@ -114,12 +115,24 @@ export default {
         path: "login-form"
       });
     },
-    logOut(){
+    showVocabularyInLesson(lessonID, lessonName) {
+      console.log(lessonID);
+      console.log(lessonName);
+
+      this.$router.push({
+        path: "vocabularies-in-lesson",
+        query: {
+          id: lessonID,
+          name: lessonName
+        }
+      });
+    },
+    logOut() {
       localStorage.removeItem("isLogin");
       localStorage.removeItem("userLogin");
-      this.$router.push({path: "login-form"});
+      this.$router.push({ path: "login-form" });
     },
-    checkinfologin(){
+    checkinfologin() {
       console.log(localStorage.getItem("isLogin"));
       console.log(localStorage.getItem("userLogin"));
     }
@@ -127,9 +140,9 @@ export default {
 
   mounted() {
     this.isLoginSuccess = localStorage.getItem("isLogin");
-    if(this.isLoginSuccess === false) {
-        this.$router.push("/")
-      }
+    if (this.isLoginSuccess === false) {
+      this.$router.push("/");
+    }
     axios.get(`http://localhost:8080/lessons`).then(response => {
       this.Lessons = response.data;
     });

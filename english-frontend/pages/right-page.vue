@@ -11,7 +11,7 @@
           </v-avatar>
         </div>
         <v-card-actions class="justify-center">
-          <v-btn round color="primary">HỌC 99 CHỦ ĐỀ KHÁC</v-btn>
+          <v-btn @click="$router.push('/')" round color="primary">HỌC 99 CHỦ ĐỀ KHÁC</v-btn>
         </v-card-actions>
       </v-card>
 
@@ -27,17 +27,47 @@
           </v-avatar>
         </div>
         <v-card-actions class="justify-center">
-          <v-btn round  color="secondary">THÁCH ĐẤU</v-btn>
+          <v-btn @click="openChallengeDialog" round color="secondary">THÁCH ĐẤU</v-btn>
         </v-card-actions>
       </v-card>
       <v-card>
 
       </v-card>
     </v-flex>
+    <challenge-dialog></challenge-dialog>
   </v-layout>
 </template>
 
 <script>
+   const ChallengeDialog = () => import('~/components/Challenge.vue');
+  export default {
+
+    components: {
+      ChallengeDialog
+    },
+    
+    data: function () {
+      return {
+
+      }
+    },
+
+    computed: {
+      challengeDialog: {
+        get() {
+          return this.$store.state.englishpage.openChallengeDialog;
+        },
+        set(value) {
+          this.$store.commit('englishpage/setChallengeDialog', value);
+        }
+      }
+    },
+    methods: {
+      openChallengeDialog() {
+        this.challengeDialog = true;
+      }
+    }
+  }
 
 </script>
 
