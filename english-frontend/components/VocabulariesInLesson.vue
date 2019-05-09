@@ -13,12 +13,16 @@
       <v-flex xs6>
           <div class="text-xs-center">
             <v-card class="ma-5">
+              <v-btn class="btn-continue" round color="blue" @click="replayAudio">
+                  <v-icon class="ml-1" light color="white">
+                    volume_up
+                  </v-icon>
+                </v-btn>
               <div class="flip-card">
                 <div class="flip-card-inner">
                   <!-- Thẻ trước -->
                   <div class="flip-card-front">
                     <div class="text-xs-center pa-4">
-                      
                       <v-img class="img" v-bind:src="vocabulariesInLesson[currentIndex].image">
                         <v-container fill-height fluid>
                           <v-layout fill-height>
@@ -57,12 +61,12 @@
                 <v-btn class="btn-continue" round color="yellow" @click="showNextVocabulary(currentIndex)">
                   TIẾP TỤC
                   <v-icon class="ml-1" light>
-                    volume_up
+                    skip_next
                   </v-icon>
                 </v-btn>
               </div>
           </div>
-          <audio hidden autoplay="autoplay" v-bind:src="vocabulariesInLesson[currentIndex].sound"
+          <audio id="audio" hidden autoplay="autoplay" v-bind:src="vocabulariesInLesson[currentIndex].sound"
           controls="controls">Dòng thông báo</audio>
       </v-flex>
        
@@ -139,6 +143,9 @@
           
           this.redirectResult(this.lessonID, this.lessonName);
         }
+      },
+      replayAudio(){
+        audio.play();
       },
       academicProgress(countVocabulary){
         
