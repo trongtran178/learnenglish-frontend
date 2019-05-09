@@ -26,7 +26,7 @@
 
 
           <div class="subheading">
-            Trần Ngọc Trọng
+            User
 
           </div>
           <v-rating readonly color="red" v-model="userHealth" length="3" empty-icon="favorite_border"
@@ -79,6 +79,9 @@
               </v-icon>
 
             </v-chip>
+            <audio id="audio" hidden autoplay="autoplay" v-bind:src="correctWord.sound" controls="controls">Dòng thông
+              báo
+            </audio>
           </div>
 
 

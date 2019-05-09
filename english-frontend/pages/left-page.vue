@@ -13,7 +13,7 @@
         </v-card-actions>
       </v-card>
     </v-flex>
-    <challenge-dialog></challenge-dialog>
+    <!-- <challenge-dialog></challenge-dialog> -->
   </v-layout>
 </template>
 
