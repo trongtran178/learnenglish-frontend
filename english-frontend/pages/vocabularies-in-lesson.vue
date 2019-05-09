@@ -25,6 +25,11 @@ export default {
   data: function() {
     return {};
   },
+  head(){
+    return {
+      title: "Học Tiếng Anh Online"
+    }
+  },
 
   components: {
     LeftPage,

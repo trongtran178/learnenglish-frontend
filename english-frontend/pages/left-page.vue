@@ -38,6 +38,11 @@ export default {
       }
     }
   },
+  head(){
+    return {
+      title: "Học Tiếng Anh Online"
+    }
+  },
   methods:{
     logOut() {
       localStorage.removeItem("isLogin");
