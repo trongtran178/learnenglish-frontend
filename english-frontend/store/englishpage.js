@@ -3,7 +3,7 @@ export const state = () => ({
     ListVocabularyInLesson: null,
     openChallengeDialog: false,
     openChallengeWithComputerRoomDialog: false,
-    vocabulariesChallenge: null
+    vocabulariesChallenge: null,
 });
 
 export const getters = {
