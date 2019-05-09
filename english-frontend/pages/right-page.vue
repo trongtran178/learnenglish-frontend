@@ -11,7 +11,7 @@
           </v-avatar>
         </div>
         <v-card-actions class="justify-center">
-          <v-btn round color="primary">HỌC 99 CHỦ ĐỀ KHÁC</v-btn>
+          <v-btn @click="$router.push('/')" round color="primary">HỌC 99 CHỦ ĐỀ KHÁC</v-btn>
         </v-card-actions>
       </v-card>
 

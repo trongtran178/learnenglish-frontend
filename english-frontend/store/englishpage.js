@@ -1,6 +1,8 @@
 export const state = () => ({
     Lessons: null,
     ListVocabularyInLesson: null,
+    isLoginSuccess: false,
+    userLogin: null,
     openChallengeDialog: false,
     openChallengeWithComputerRoomDialog: false,
     vocabulariesChallenge: null,
@@ -15,6 +17,12 @@ export const mutations =  {
     },
     setListVocabularyInLesson(state, value) {
         state.ListVocabularyInLesson = value;
+    },
+    setLoginSuccess(state, value) {
+        state.isLoginSuccess = value;
+    },
+    setUserLogin(state, value) {
+        state.userLogin = value;
     },
     setChallengeDialog(state, value) {
         state.openChallengeDialog = value;
