@@ -5,7 +5,7 @@ export const state = () => ({
     userLogin: null,
     openChallengeDialog: false,
     openChallengeWithComputerRoomDialog: false,
-    vocabulariesChallenge: null
+    vocabulariesChallenge: null,
 });
 
 export const getters = {
