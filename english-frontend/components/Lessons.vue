@@ -2,15 +2,6 @@
   <v-card class="scroll" height="700">
     <!-- <v-layout row wrap> -->
     <div>
-      <div>
-        <v-btn color="danger" @click="logOut">Logout</v-btn>
-      </div>
-      <div>
-        <v-btn color="info" @click="showLoginForm">Login</v-btn>
-      </div>
-    </div>
-    <div>
-      <v-btn color="info" @click="checkinfologin">Check</v-btn>
     </div>
     <v-card-title class="title">
       <div class="body-1 text-xs-left">
@@ -43,8 +34,7 @@
                   >
                     <v-avatar size="130px">
                       <v-img
-                        src="https://demo.cloudimg.io/width/600/n/https://scaleflex.ultrafast.io/https://jolipage.airstore.io/img.jpg
-                    "
+                        v-bind:src="lesson.avatar"
                       ></v-img>
                     </v-avatar>
                   </v-progress-circular>
@@ -101,12 +91,13 @@ export default {
     getValueHasLearnedInLesson() {
       return 80;
     },
-    showVocabularyInLesson(lessonID) {
+    showVocabularyInLesson(lessonID, lessonName) {
       console.log(lessonID);
       this.$router.push({
         path: "vocabularies-in-lesson",
         query: {
-          id: lessonID
+          id: lessonID,
+          name: lessonName
         }
       });
     },
@@ -126,15 +117,6 @@ export default {
           name: lessonName
         }
       });
-    },
-    logOut() {
-      localStorage.removeItem("isLogin");
-      localStorage.removeItem("userLogin");
-      this.$router.push({ path: "login-form" });
-    },
-    checkinfologin() {
-      console.log(localStorage.getItem("isLogin"));
-      console.log(localStorage.getItem("userLogin"));
     }
   },
 
@@ -146,6 +128,7 @@ export default {
     axios.get(`http://localhost:8080/lessons`).then(response => {
       this.Lessons = response.data;
     });
+    console.log(this.Lessons);
   }
 };
 </script>

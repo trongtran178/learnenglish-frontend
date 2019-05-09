@@ -50,6 +50,11 @@ export default {
       },
       mounted() {
         console.log(this.$route.query.id);
+        this.isLoginSuccess = localStorage.getItem("isLogin");
+        console.log(this.isLoginSuccess);
+        if (this.isLoginSuccess == null) {
+          this.$router.push({ path: "login-form" });
+        }
       }
       // mounted() {
       //   this.lessonID = this.$route.query.id;
