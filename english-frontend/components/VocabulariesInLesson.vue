@@ -12,13 +12,17 @@
 
         <v-flex xs6>
           <div class="text-xs-center">
-            <v-card class="ma-3">
+            <v-card class="ma-5">
+              <v-btn class="btn-continue" round color="blue" @click="replayAudio">
+                  <v-icon class="ml-1" light color="white">
+                    volume_up
+                  </v-icon>
+                </v-btn>
               <div class="flip-card">
                 <div class="flip-card-inner">
                   <!-- Thẻ trước -->
                   <div class="flip-card-front">
                     <div class="text-xs-center pa-4">
-
                       <v-img class="img" v-bind:src="vocabulariesInLesson[currentIndex].image">
                         <v-container fill-height fluid>
                           <v-layout fill-height>
@@ -51,27 +55,27 @@
             </v-card>
           </div>
           <div class="wrap-btn">
-            <!-- <div class="headline font-weight-thin" font-weight="10">
-              Ấn [dấu cách] để lật card
-            </div> -->
-            <div>
-              <v-btn class="btn-continue" round color="yellow" @click="showNextVocabulary(currentIndex)">
-                TIẾP TỤC
-                <!-- <v-icon class="ml-1" light>
-                  volume_up
-                </v-icon> -->
-              </v-btn>
-            </div>
+            <div class="headline font-weight-thin" font-weight="10">
+                Ấn [dấu cách] để lật card
+              </div>
+              <div>
+                <v-btn class="btn-continue" round color="yellow" @click="showNextVocabulary(currentIndex)">
+                  TIẾP TỤC
+                  <v-icon class="ml-1" light>
+                    skip_next
+                  </v-icon>
+                </v-btn>
+              </div>
           </div>
-          <audio hidden autoplay="autoplay" v-bind:src="vocabulariesInLesson[currentIndex].sound"
-            controls="controls">Dòng thông báo</audio>
-        </v-flex>
+          <audio id="audio" hidden autoplay="autoplay" v-bind:src="vocabulariesInLesson[currentIndex].sound"
+          controls="controls">Dòng thông báo</audio>
+      </v-flex>
+       
+      
 
-
-
-        <v-flex xs3>
-          <div class="text-xs-right">
-            <!--<v-btn icon large>
+      <v-flex xs3>
+        <div class="text-xs-right">
+          <!--<v-btn icon large>
             <v-icon large>
               access_time
             </v-icon>
@@ -139,11 +143,14 @@
           this.redirectResult(this.lessonID, this.lessonName);
         }
       },
-      academicProgress(countVocabulary) {
-
-        this.progess = (countVocabulary + 1) / this.vocabulariesInLesson.length * 100;
-        return this.progess;
-
+      replayAudio(){
+        audio.play();
+      },
+      academicProgress(countVocabulary){
+        
+          this.progess = (countVocabulary+1) / this.vocabulariesInLesson.length * 100;
+          return this.progess;
+        
       },
       redirectResult(lessonID, lessonName) {
         this.$router.push({
