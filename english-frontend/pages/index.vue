@@ -35,6 +35,11 @@ export default {
     RightPage,
     VocabulariesInLesson
   },
+  head(){
+    return {
+      title: "Học Tiếng Anh Online"
+    }
+  },
   data: function() {
     return {};
   },

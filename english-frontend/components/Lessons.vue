@@ -87,6 +87,11 @@ export default {
       }
     }
   },
+  head(){
+    return {
+      title: "Học Tiếng Anh Online"
+    }
+  },
   methods: {
     getValueHasLearnedInLesson() {
       return 80;
