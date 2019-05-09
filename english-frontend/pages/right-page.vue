@@ -3,7 +3,7 @@
     <v-flex xs12>
       <v-card>
         <v-card-title class="justify-center subheading">
-          Lesson 1 : Hello world
+          <!-- Lesson 1 : Hello world -->
         </v-card-title>
         <div class="text-xs-center">
           <v-avatar size="120px">
@@ -11,7 +11,7 @@
           </v-avatar>
         </div>
         <v-card-actions class="justify-center">
-          <v-btn @click="$router.push('/')" round color="primary">HỌC 99 CHỦ ĐỀ KHÁC</v-btn>
+          <v-btn @click="$router.push('/')" round color="primary">HỌC CÁC CHỦ ĐỀ KHÁC</v-btn>
         </v-card-actions>
       </v-card>
 
@@ -19,12 +19,12 @@
     <v-flex xs12>
       <v-card>
         <v-card-title class="justify-center subheading">
-          Lesson 1 : Hello world
+          <!-- Lesson 1 : Hello world -->
         </v-card-title>
         <div class="text-xs-center">
-          <v-avatar size="120px">
-            <v-img src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"></v-img>
-          </v-avatar>
+          <!-- <v-avatar size="150px"> -->
+            <v-img height="220px" src="challenge-icon.png"></v-img>
+          <!-- </v-avatar> -->
         </div>
         <v-card-actions class="justify-center">
           <v-btn @click="openChallengeDialog" round color="secondary">THÁCH ĐẤU</v-btn>
