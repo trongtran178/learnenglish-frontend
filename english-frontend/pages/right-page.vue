@@ -23,7 +23,7 @@
         </v-card-title>
         <div class="text-xs-center">
           <!-- <v-avatar size="150px"> -->
-            <v-img height="220px" src="challenge-icon.png"></v-img>
+            <v-img height="220px" style="width:150px; height:150px; margin-left:45px;" src="war_btn.png"></v-img>
           <!-- </v-avatar> -->
         </div>
         <v-card-actions class="justify-center">

@@ -17,11 +17,11 @@
         <template v-for="lesson in Lessons">
           <v-flex xs6 sm4 md4>
             <v-hover>
-              <v-card
+              <v-card style="border:3px solid azure; " class="test"
                 slot-scope="{ hover }"
                 @click="showVocabularyInLesson(lesson.id,lesson.lessonName)"
                 max-height="250px"
-                :class="`elevation-${hover ? 12 : 2} ma-2`"
+                :class="`elevation-${hover ? 12 : 2} ma-2 `"
               >
                 <div class="text-xs-center">
                   <v-progress-circular
@@ -142,4 +142,8 @@ export default {
 .scroll {
   overflow-y: auto;
 }
+.test:hover{
+  background-color: #CFD8DC;
+}
+
 </style>
