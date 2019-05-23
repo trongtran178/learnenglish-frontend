@@ -13,6 +13,26 @@
         </v-card-actions>
       </v-card>
     </v-flex>
+    <v-flex xs12>
+      <v-card>
+        <v-img
+          src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+          height="200px"
+        >
+        </v-img>
+
+        <v-card-title primary-title>
+          <div>
+            <div class="headline">Your vocabularies</div>
+            <span class="grey--text">English </span>
+          </div>
+        </v-card-title>
+
+        <v-card-actions>
+          <v-btn flat color="purple" @click="showUserVocabulary()">Show vocabulary   <v-spacer></v-spacer><i class="material-icons"> turned_in_not</i></v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-flex>
     <!-- <challenge-dialog></challenge-dialog> -->
   </v-layout>
 </template>
@@ -48,6 +68,9 @@ export default {
       localStorage.removeItem("isLogin");
       localStorage.removeItem("userLogin");
       this.$router.push({ path: "login-form" });
+    },
+    showUserVocabulary(){
+      this.$router.push({ path: "user-vocabulary" });
     }
   }
 };
