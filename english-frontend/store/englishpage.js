@@ -1,5 +1,6 @@
 export const state = () => ({
     Lessons: null,
+    Vocabularies: null,
     ListVocabularyInLesson: null,
     isLoginSuccess: false,
     userLogin: null,
@@ -14,6 +15,9 @@ export const getters = {
 export const mutations =  {
     setLessons(state, value) {
         state.Lessons = value;
+    },
+    setVocabularies(state, value){
+        state.Vocabularies = value;
     },
     setListVocabularyInLesson(state, value) {
         state.ListVocabularyInLesson = value;

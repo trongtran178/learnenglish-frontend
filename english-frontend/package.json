@@ -12,19 +12,27 @@
     "test": "jest"
   },
   "dependencies": {
+    "app": "^0.1.0",
     "axios": "^0.18.0",
+    "consola": "^2.6.2",
+    "console-stamp": "^0.2.7",
     "cross-env": "^5.2.0",
-    "express": "^4.16.4",
-    "nuxt": "^2.4.0",
-    "vuetify": "^1.5.5",
-    "vuetify-loader": "^1.2.1"
+    "express": "^4.17.0",
+    "node-sass": "^4.12.0",
+    "nuxt": "^2.7.1",
+    "plugin": "^0.3.3",
+    "sass-loader": "^7.1.0",
+    "vuetify": "^1.5.14",
+    "vuetify-loader": "^1.2.2"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.27",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^24.1.0",
+    "css-loader": "^2.1.1",
     "jest": "^24.1.0",
     "nodemon": "^1.18.9",
+    "style-loader": "^0.23.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "vue-jest": "^3.0.3"
