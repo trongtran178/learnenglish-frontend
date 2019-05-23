@@ -410,7 +410,7 @@
           if (this.countComputerCollectSelect > this.countUserCollectSelect) {
             setTimeout(() => {
               this.challengeWithComputer = false;
-              this.$router.push('/loser?player=user');
+              this.$router.push('/loser?player=user&heart='+this);
             }, 2000);
           } else if (this.countComputerCollectSelect < this.countUserCollectSelect) {
             setTimeout(() => {

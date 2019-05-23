@@ -229,7 +229,7 @@
   }
 
   .img {
-    width: 340px;
+    width: 400px;
     height: 280px;
   }
 
