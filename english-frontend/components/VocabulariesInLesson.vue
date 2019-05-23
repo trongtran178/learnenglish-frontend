@@ -195,6 +195,7 @@ export default {
 </script>
 
 <style scoped>
+<<<<<<< HEAD
 .flip-card {
   position: relative;
   background-color: transparent;
@@ -242,4 +243,58 @@ export default {
   width: 340px;
   height: 280px;
 }
+=======
+  .flip-card {
+    position: relative;
+    background-color: transparent;
+    width: 100%;
+    height: 400px;
+    perspective: 1000px;
+    font-size: 30px;
+  }
+
+  .flip-card-inner {
+    position: relative;
+    text-align: center;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+
+  }
+
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .flip-card-front,
+  .flip-card-back {
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+
+  }
+
+  .flip-card-front {
+    color: black;
+    z-index: 2;
+  }
+
+  .flip-card-back {
+
+    transform: rotateY(180deg);
+    z-index: 1;
+  }
+
+  .wrap-btn {
+    text-align: center;
+  }
+
+  .img {
+    width: 400px;
+    height: 280px;
+  }
+
+>>>>>>> 4e1c9c9ccddf7bcecb41db22f842b296cac68690
 </style>
